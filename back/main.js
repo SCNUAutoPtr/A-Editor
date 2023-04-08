@@ -3,14 +3,16 @@ const app = express();
 const {History} = require('./server.js');
 const {Sequelize} = require('sequelize');
 
+const bodyParser = require('body-parser');
+const app1 = bodyParser.urlencoded({ extended: false });
+const mysql = require("mysql");
 const db = mysql.createPool({
     host: "127.0.0.1",
     user: "root",
     password: "******",
     database: "test_db",
   });
-router.use(express.urlencoded({extended: false}))
-const mysql = require("mysql");
+
 
 
 app.put('back/server.js',async(req,res)=>{
@@ -47,7 +49,7 @@ app.put('back/server.js',async(req,res)=>{
 //提交以及更新文章内容
 
   
-  app.post('/submit/', (req, res) => {
+  app1.post('/submit/', (req, res) => {
     const htmlData = req.body.htmldata;
     const id = req.body.id;
     const sql = 'INSERT INTO html_data (null,id,html_data) VALUES (id,id_f,html_data);'
@@ -62,7 +64,7 @@ app.put('back/server.js',async(req,res)=>{
   });
   
   
-  app.post('/update/', (req, res) => {
+  app1.post('/update/', (req, res) => {
     const htmlData = req.body.htmldata;
     const id = req.body.id;
     const sql = 'UPDATE html_data set html_data = htmldata WHERE id_f = id;'
