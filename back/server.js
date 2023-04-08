@@ -48,6 +48,22 @@ const History = sequelize.define('History', {
   ArticleVersion.belongsTo(Article);
   
 
+  const htmldata = sequelize.define('htmldata', {
+    id: {
+      type: Datatypes.INTEGER,
+      allowNull: true,
+    },
+    id_f: {
+      type: Datatypes.INTEGER,
+      allowNull: false,
+    },
+    html_data: {
+      type: Datatypes.LONGTEXT,
+      allowNull: false,
+    },
+  });
 
     // 导出History
-  module.exports = History;
+    //暴露htmldata
+  module.exports = History,htmldata;
+

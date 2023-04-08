@@ -5,13 +5,7 @@ const {Sequelize} = require('sequelize');
 
 const bodyParser = require('body-parser');
 const app1 = bodyParser.urlencoded({ extended: false });
-const mysql = require("mysql");
-const db = mysql.createPool({
-    host: "127.0.0.1",
-    user: "root",
-    password: "******",
-    database: "test_db",
-  });
+
 
 
 // 创建历史版本
@@ -104,33 +98,35 @@ app.delete('back/server.js', async(req,res) =>{
 //提交以及更新文章内容
 
   
-  app1.post('/submit/', (req, res) => {
+  app1.post('/submit/', async(req, res) => {
     const htmlData = req.body.htmldata;
     const id = req.body.id;
-    const sql = 'INSERT INTO html_data (null,id,html_data) VALUES (id,id_f,html_data);'
+    const new_data = await html_data.create({
+      id: null,
+      id_f : id,
+      html_data : htmldata,
+  })
   
-  
-    db.query(sql, htmlData, (err, result) => {
-      if (err) throw err;
+      if (!new_content);
       return res.send({ state: 0, message: err });
       // console.log('插入数据库成功');
       return res.send({ state: 1, message: '插入数据库成功' });
     });
-  });
   
   
-  app1.post('/update/', (req, res) => {
+  
+  app1.post('/update/', async(req, res) => {
     const htmlData = req.body.htmldata;
     const id = req.body.id;
-    const sql = 'UPDATE html_data set html_data = htmldata WHERE id_f = id;'
+    const update_data = await html_data.update({id_f:id,html_data:htmldata},
+                                              {where :{id_f:id}});
+                        
   
-  
-    db.query(sql, htmlData, (err, result) => {
-      if (err) throw err
+      if (! update_data)
       return res.send({ state: 0, message: err });
       // console.log('更新成功');
       return res.send({ state: 1, message: '更新成功' });
     });
-  });
+
   
 
