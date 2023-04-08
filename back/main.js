@@ -14,7 +14,7 @@ const db = mysql.createPool({
   });
 
 
-
+// 创建历史版本
 app.put('back/server.js',async(req,res)=>{
     const {id}  = req.params
     const {content,author,versiontitle}= req.body
@@ -37,13 +37,68 @@ app.put('back/server.js',async(req,res)=>{
     }
     catch (error){
         console.error(error);
-            res,status(500).json({
+            res.status(500).json({
                 message: 'Server error'
             });
         }
 
    
 })  
+
+//删除历史版本
+app.delete('back/server.js', async(req,res) =>{
+    const {id1} = req.params
+   
+    try {
+        //找到对应文章
+        const articleid = await Article.findbyPk(id1)
+        if (!articleid) {
+            return res.status(404).json({
+                message : "article not found"
+            })
+        }
+        await History.destroy({
+            where : {
+                ID : id1
+            }
+        })
+        
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({
+            message : 'serve err'
+        })
+    }
+
+})
+  //查找历史版本
+  app.post('back/server.js' , async(req,res)=>{
+        const {id2} = req.params
+
+        try {
+            const searcharticle = await Article.findbyPk(id2)
+            if (!searcharticle) {
+                return res.status(404).json({
+                    message : "article not found"
+                })
+            }
+            const resultarticle  = await History.findall({
+                where : {
+                    ID : id2
+                }
+            }) 
+            res.json(resultarticle)
+            
+        } catch (error) {
+            console.error(err)
+            res.status(500).json({
+                message : 'serve err'
+            })
+        }
+  })
+
+
+
 
 
 //提交以及更新文章内容
