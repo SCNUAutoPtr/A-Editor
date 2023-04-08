@@ -49,7 +49,7 @@ app.put('back/server.js',async(req,res)=>{
     const new_data = await html_data.create({
       id: null,
       id_f : id,
-      html_data : html_data,
+      html_data : htmldata,
   })
   
       if (!new_content);
