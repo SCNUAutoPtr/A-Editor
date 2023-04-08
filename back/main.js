@@ -3,6 +3,15 @@ const app = express();
 const {History} = require('./server.js');
 const {Sequelize} = require('sequelize');
 
+const db = mysql.createPool({
+    host: "127.0.0.1",
+    user: "root",
+    password: "******",
+    database: "test_db",
+  });
+router.use(express.urlencoded({extended: false}))
+const mysql = require("mysql");
+
 
 app.put('back/server.js',async(req,res)=>{
     const {id}  = req.params
@@ -33,4 +42,38 @@ app.put('back/server.js',async(req,res)=>{
 
    
 })  
+
+
+//提交以及更新文章内容
+
+  
+  app.post('/submit/', (req, res) => {
+    const htmlData = req.body.htmldata;
+    const id = req.body.id;
+    const sql = 'INSERT INTO html_data (null,id,html_data) VALUES (id,id_f,html_data);'
+  
+  
+    db.query(sql, htmlData, (err, result) => {
+      if (err) throw err;
+      return res.send({ state: 0, message: err });
+      // console.log('插入数据库成功');
+      return res.send({ state: 1, message: '插入数据库成功' });
+    });
+  });
+  
+  
+  app.post('/update/', (req, res) => {
+    const htmlData = req.body.htmldata;
+    const id = req.body.id;
+    const sql = 'UPDATE html_data set html_data = htmldata WHERE id_f = id;'
+  
+  
+    db.query(sql, htmlData, (err, result) => {
+      if (err) throw err
+      return res.send({ state: 0, message: err });
+      // console.log('更新成功');
+      return res.send({ state: 1, message: '更新成功' });
+    });
+  });
+  
 
