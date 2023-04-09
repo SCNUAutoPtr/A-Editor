@@ -9,7 +9,7 @@ const app1 = bodyParser.urlencoded({ extended: false });
 
 // 创建历史版本
 app.put('/back/server.js',async(req,res)=>{
-    const {id,id_}  = req.params
+    const {id}  = req.params
     const {content,author,versiontitle}= req.body
 
     try {
@@ -104,35 +104,34 @@ app.delete('/back/server.js', async(req,res) =>{
 //提交以及更新文章内容
 
   
-  app1.post('/submit/', async(req, res) => {
-    const htmlData = req.body.htmldata;
+app1.post('back/server.js', async(req, res) => {
+    const htmldata = req.body.htmldata;
     const id = req.body.id;
-    const new_data = await html_data.create({
-      id: null,
-      articleid : id,
-      html_data : htmldata,
-  })
-  
-      if (!new_content)
-      return res.send({ state: 0, message: err });
-      // console.log('插入数据库成功');
-      return res.send({ state: 1, message: '插入数据库成功' });
-    });
-  
-  
-  
-  app1.post('/update/', async(req, res) => {
-    const htmlData = req.body.htmldata;
-    const id = req.body.id;
-    const update_data = await html_data.update({articleid:id,html_data:htmldata},
-                                              {where :{id_f:id}});
-                        
-  
-      if (! update_data)
-      return res.send({ state: 0, message: err });
-      // console.log('更新成功');
-      return res.send({ state: 1, message: '更新成功' });
+    const new_data = await article.create({
+        id: null,
+        ArticleId: id,
+        html_data: htmldata,
+    })
+
+        if (!new_content)
+        return res.send({ state: 0, message: err });
+        // console.log('插入数据库成功');
+        return res.send({ state: 1, message: '插入数据库成功' });
     });
 
+
+
+app1.post('back/server.js', async(req, res) => {
+    const htmldata = req.body.htmldata;
+    const id = req.body.id;
+    const update_data = await article.update({html_data: htmldata},
+                                            {where: {ArticleId: id}});
+                      
+
+    if (! update_data)
+    return res.send({ state: 0, message: err });
+    // console.log('更新成功');
+    return res.send({ state: 1, message: '更新成功' });
+  });
   
 

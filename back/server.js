@@ -1,4 +1,4 @@
-const {Sequelize,Datatypes} = require('sequelize');
+const {Sequelize, DataTypes} = require('sequelize');
 const sequelize = new Sequelize('database', 'root','password',{
     host : "localhost", 
     dialect : "mysql",
@@ -11,27 +11,27 @@ const sequelize = new Sequelize('database', 'root','password',{
 const History = sequelize.define('History', {
     // Model attributes are defined here
       ID: {
-      type: Datatypes.UUID,
+      type: DataTypes.UUID,
       defaultValue: Datatypes.UUIDV4,
       allowNull: false,
     },
   ArticleId : {
-      type: Datatypes.UUID,
+      type: DataTypes.UUID,
       references: {
         model: 'Article',
         key: 'articleID',
       }
   },
     author : {
-      type : Datatypes.STRING,
+      type : DataTypes.STRING,
       allowNull : false,
     },
     versiontitle : {
-      type : Datatypes.STRING,
+      type : DataTypes.STRING,
       allowNull : false,
     },
     cotent : {
-      type : Datatypes.STRING,  
+      type : DataTypes.STRING,  
       allowNull : false,
     },
   },
@@ -48,22 +48,48 @@ const History = sequelize.define('History', {
   ArticleVersion.belongsTo(Article);
   
 
-  const Article = sequelize.define('Article', {
-    id: {
-      type: Datatypes.INTEGER,
-      allowNull: true,
-    },
-    ArticleId: {
-      type: Datatypes.INTEGER,
-      allowNull: false,
-    },
-    html_data: {
-      type: Datatypes.LONGTEXT,
-      allowNull: false,
-    },
-  });
 
-    // 导出History
-    //暴露htmldata
-  module.exports = {History,Article};
 
+  // 存储文章信息的表
+const Article  = sequelize.define(' Article ', {
+  ArticleId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
+  html_data: {
+    type: DataTypes.LONGTEXT,
+    allowNull: false
+  },
+  article_author: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  article_title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  article_category: {
+    type: DataTypes.STRING,
+    defaultValue: 'My article',
+    allowNull: false
+  },
+  article_label: {
+    type: DataTypes.STRING,
+  },
+}, {
+  tableName: 'article',
+  timestamps: true,
+  createdAt: true,
+  updatedAt: true
+});
+
+// 检擦文章信息的表避免冲突
+(async () => {
+  await Article.sync();
+})();
+
+// 导出 History
+// 暴露 article
+module.exports = {History,Article};
