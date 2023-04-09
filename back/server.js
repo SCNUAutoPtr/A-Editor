@@ -47,23 +47,6 @@ const History = sequelize.define('History', {
   Article.hasMany(ArticleVersion);
   ArticleVersion.belongsTo(Article);
   
-/*
-const htmldata = sequelize.define('htmldata', {
-  id: {
-    type: Datatypes.INTEGER,
-    allowNull: true,
-  },
-  ArticleId: {
-    type: Datatypes.INTEGER,
-    allowNull: false,
-  },
-  html_data: {
-    type: Datatypes.LONGTEXT,
-    allowNull: false,
-  },
-});
-*/
-    
 
 
   // 存储文章信息的表
@@ -106,6 +89,6 @@ const article = sequelize.define('article', {
   await article.sync();
 })();
 
-// 导出History
-//暴露article
+// 导出 History
+// 暴露 article
 module.exports = History, article;
