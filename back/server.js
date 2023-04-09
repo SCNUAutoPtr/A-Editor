@@ -1,4 +1,4 @@
-const {Sequelize} = require('sequelize');
+const {Sequelize,Datatypes} = require('sequelize');
 const sequelize = new Sequelize('database', 'root','password',{
     host : "localhost", 
     dialect : "mysql",
@@ -48,7 +48,7 @@ const History = sequelize.define('History', {
   ArticleVersion.belongsTo(Article);
   
 
-  const htmldata = sequelize.define('htmldata', {
+  const Article = sequelize.define('Article', {
     id: {
       type: Datatypes.INTEGER,
       allowNull: true,
@@ -65,5 +65,5 @@ const History = sequelize.define('History', {
 
     // 导出History
     //暴露htmldata
-  module.exports = History,htmldata;
+  module.exports = {History,Article};
 
