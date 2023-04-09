@@ -107,7 +107,7 @@ app.delete('/back/server.js', async(req,res) =>{
 app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
     const id = req.body.id;
-    const new_data = await article.create({
+    const new_data = await Article.create({
         id: null,
         ArticleId: id,
         html_data: htmldata,
@@ -124,14 +124,13 @@ app1.post('back/server.js', async(req, res) => {
 app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
     const id = req.body.id;
-    const update_data = await article.update({html_data: htmldata},
+    const update_data = await Article.update({html_data: htmldata},
                                             {where: {ArticleId: id}});
                       
 
-    if (! update_data)
-    return res.send({ state: 0, message: err });
+    if (! update_data) return res.send({ state: 0, message: err });
     // console.log('更新成功');
     return res.send({ state: 1, message: '更新成功' });
-  });
+    });
   
 
