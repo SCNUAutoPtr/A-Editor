@@ -53,7 +53,7 @@ const History = sequelize.define('History', {
       type: Datatypes.INTEGER,
       allowNull: true,
     },
-    id_f: {
+    ArticleId: {
       type: Datatypes.INTEGER,
       allowNull: false,
     },

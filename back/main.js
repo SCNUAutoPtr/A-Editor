@@ -103,11 +103,11 @@ app.delete('back/server.js', async(req,res) =>{
     const id = req.body.id;
     const new_data = await html_data.create({
       id: null,
-      id_f : id,
+      articleid : id,
       html_data : htmldata,
   })
   
-      if (!new_content);
+      if (!new_content)
       return res.send({ state: 0, message: err });
       // console.log('插入数据库成功');
       return res.send({ state: 1, message: '插入数据库成功' });
@@ -118,7 +118,7 @@ app.delete('back/server.js', async(req,res) =>{
   app1.post('/update/', async(req, res) => {
     const htmlData = req.body.htmldata;
     const id = req.body.id;
-    const update_data = await html_data.update({id_f:id,html_data:htmldata},
+    const update_data = await html_data.update({articleid:id,html_data:htmldata},
                                               {where :{id_f:id}});
                         
   
