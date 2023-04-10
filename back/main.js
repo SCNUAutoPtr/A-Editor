@@ -108,12 +108,12 @@ app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
     const id = req.body.id;
     const new_data = await Article.create({
-        id: null,
+        // id: null,
         ArticleId: id,
         html_data: htmldata,
     })
 
-        if (!new_content)
+        if (!new_data)
         return res.send({ state: 0, message: err });
         // console.log('插入数据库成功');
         return res.send({ state: 1, message: '插入数据库成功' });

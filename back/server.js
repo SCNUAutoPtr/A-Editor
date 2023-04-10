@@ -60,6 +60,7 @@ const Article  = sequelize.define(' Article ', {
   },
   html_data: {
     type: DataTypes.LONGTEXT,
+    // type: DataTypes.BLOB('long'),
     allowNull: false
   },
   article_author: {
