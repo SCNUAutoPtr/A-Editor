@@ -1,20 +1,16 @@
 <template>
   <div>
     <button @click="handleClick">跳转到 Editor 页面</button>
-
-    <CommentArea></CommentArea>
-    <HistoryRecord></HistoryRecord>
+    <FileList></FileList>
 
   </div>
 </template>
 
 <script>
-import CommentArea from "./CommentArea.vue"
-import HistoryRecord from "./HistoryRecord.vue"
+import FileList from "./FileList.vue";
 export default {
   components: {
-    CommentArea,
-    HistoryRecord
+    FileList
   },
   data() {
     return {
@@ -29,3 +25,5 @@ export default {
 </script>
 
 <style scoped></style>
+
+
