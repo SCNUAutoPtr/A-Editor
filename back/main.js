@@ -130,21 +130,22 @@ app1.post('back/server.js', async(req, res) => {
 
 
 
-app1.post('back/server.js', async(req, res) => {
-    const htmldata = req.body.htmldata;
-    const id = req.body.id;
-    const update_data = await Article.update({
-        html_data: htmldata
-    },{
-        where:{
-            ArticleId: id
-        }
-    })
+//app1.update('back/server.js', async(req, res) => {
+    //const htmldata = req.body.htmldata;
+    // const id = req.body.id;
+    //const update_data = await Article.update({
+        //html_data: htmldata
+    //},{
+        //where:{
+            //ArticleId: id
+        //}
+    //})
                       
 
-    if (! update_data) {
-        return res.send({ state: 0, message: 'Error: fail to update.' });
-    }
+    //if (! update_data) {
+        //return res.send({ state: 0, message: 'Error: fail to update.' });
+    //}
    
-    return res.send({ state: 1, message: '文章数据更新成功.' });
-});
+    //return res.send({ state: 1, message: '文章数据更新成功.' });
+//});
+app1.select('back/server.js', async(req, res) => {});
