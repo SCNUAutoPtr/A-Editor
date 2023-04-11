@@ -74,7 +74,7 @@ const Article  = sequelize.define(' Article ', {
   article_category: {
     type: DataTypes.STRING,
     defaultValue: 'My article',
-    allowNull: false
+    allowNull: true
   },
   article_label: {
     type: DataTypes.STRING,
