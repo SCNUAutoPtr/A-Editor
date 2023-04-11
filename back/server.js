@@ -86,11 +86,10 @@ const Article  = sequelize.define(' Article ', {
   updatedAt: true
 });
 
-// 检擦文章信息的表避免冲突
+// 检查文章信息的表避免冲突
 (async () => {
   await Article.sync();
 })();
 
-// 导出 History
-// 暴露 article
+// 导出 History,Article
 module.exports = {History,Article};

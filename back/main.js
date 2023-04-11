@@ -139,10 +139,8 @@ app1.select('back/server.js', async(req, res) => {
             message: 'Error: fail to select.' });
     }
     return res.send({
-        state: 200, message: '文章数据查询成功.',
-        data : select_data.html_data,
-        author : select_data.article_author,
-        title : select_data.article_title,
-        category : select_data.article_category
+        state: 200, 
+        message: '文章数据查询成功.',
+        select_data: select_data,
         });
 });
