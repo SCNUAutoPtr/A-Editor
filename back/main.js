@@ -101,9 +101,7 @@ app.delete('/back/server.js', async(req,res) =>{
 
 
 
-//提交以及更新文章内容
-
-  
+//提交以及文章内容  
 app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
     // const id = req.body.id;
@@ -129,23 +127,21 @@ app1.post('back/server.js', async(req, res) => {
 });
 
 
-
-//app1.update('back/server.js', async(req, res) => {
-    //const htmldata = req.body.htmldata;
-    // const id = req.body.id;
-    //const update_data = await Article.update({
-        //html_data: htmldata
-    //},{
-        //where:{
-            //ArticleId: id
-        //}
-    //})
-                      
-
-    //if (! update_data) {
-        //return res.send({ state: 0, message: 'Error: fail to update.' });
-    //}
-   
-    //return res.send({ state: 1, message: '文章数据更新成功.' });
-//});
-app1.select('back/server.js', async(req, res) => {});
+//查询文章内容
+app1.select('back/server.js', async(req, res) => {
+    const id = req.params.id;
+    const select_data = await Article.findAll({
+        where:{
+            ArticleId: id
+        }
+    })
+    if (! select_data) {
+        return res.send({ state: 0, message: 'Error: fail to select.' });
+    }
+    return res.send({ state: 200, message: '文章数据查询成功.',
+                      data : select_data.html_data,
+                      author : select_data.article_author,
+                      title : select_data.article_title,
+                      category : select_data.article_category
+                     });
+});
