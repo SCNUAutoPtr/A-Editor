@@ -114,9 +114,13 @@ app1.post('back/server.js', async(req, res) => {
     const Article_Id = new_data.ArticleId;
     
     if (!new_data) {
-        return res.send( {state: 0, message: 'Error: fail to insert.',ArticleId : null} );
+        return res.send({
+            state: 0, 
+            message: 'Error: fail to insert.',ArticleId: null});
     }
-    return res.send({state: 200, message: '文章数据插入成功.',ArticleId : Article_Id });
+    return res.send({
+        state: 200, 
+        message: '文章数据插入成功.',ArticleId: Article_Id });
 
 });
 
@@ -130,7 +134,9 @@ app1.select('back/server.js', async(req, res) => {
         }
     })
     if (! select_data) {
-        return res.send({ state: 0, message: 'Error: fail to select.' });
+        return res.send({ 
+            state: 0, 
+            message: 'Error: fail to select.' });
     }
     return res.send({
         state: 200, message: '文章数据查询成功.',
