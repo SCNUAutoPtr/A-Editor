@@ -107,18 +107,17 @@ app.delete('/back/server.js', async(req,res) =>{
 app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
     const id = req.body.id;
-    var [new_data, is_created] = await Article.findOrCreate({
+    var new_data = await Article.create({
         // id: null,
         ArticleId: id,
         html_data: htmldata,
     })
     
-    if (!is_created) {
-        res.send({ state: 0, message: `ArticleID: ${new_data.ArticleId} is duplicated.` });
+    if (!new_data) {
+        return res.send({ state: 0, message: `Error.` });
     }
-    else {
-        res.send({ state: 1, message: `文章数据 ${new_data.html_data} 插入数据库成功.` });
-    }
+    return res.send({ state: 1, message: `文章数据插入数据库成功.` });
+
 });
 
 
@@ -136,9 +135,8 @@ app1.post('back/server.js', async(req, res) => {
                       
 
     if (! update_data) {
-        res.send({ state: 0, message: 'Error.' });
+        return res.send({ state: 0, message: 'Error.' });
     }
-    else {
-        res.send({ state: 1, message: '文章数据更新成功.' });
-    }
+    else 
+        return res.send({ state: 1, message: '文章数据更新成功.' });
 });
