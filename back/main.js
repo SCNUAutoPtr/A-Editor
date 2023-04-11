@@ -98,19 +98,13 @@ app.delete('/back/server.js', async(req,res) =>{
   })
 
 
-
-
-
 //提交以及文章内容  
 app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
-    // const id = req.body.id;
     const author = req.body.author;
     const title = req.body.title;
     const category = req.body.category;
     const new_data = await Article.create({
-        // id: null,
-        // ArticleId: id,
         html_data: htmldata,
         article_author: author,
         article_title: title,
@@ -120,9 +114,9 @@ app1.post('back/server.js', async(req, res) => {
     const Article_Id = new_data.ArticleId;
     
     if (!new_data) {
-        return res.status(0).json( {message: `Error: fail to insert.`,ArticleId : null} );
+        return res.send( {state: 0, message: 'Error: fail to insert.',ArticleId : null} );
     }
-    return res.status(200).json({message: `文章数据插入成功.`,ArticleId : Article_Id });
+    return res.send({state: 200, message: '文章数据插入成功.',ArticleId : Article_Id });
 
 });
 
@@ -138,10 +132,11 @@ app1.select('back/server.js', async(req, res) => {
     if (! select_data) {
         return res.send({ state: 0, message: 'Error: fail to select.' });
     }
-    return res.send({ state: 200, message: '文章数据查询成功.',
-                      data : select_data.html_data,
-                      author : select_data.article_author,
-                      title : select_data.article_title,
-                      category : select_data.article_category
-                     });
+    return res.send({
+        state: 200, message: '文章数据查询成功.',
+        data : select_data.html_data,
+        author : select_data.article_author,
+        title : select_data.article_title,
+        category : select_data.article_category
+        });
 });
