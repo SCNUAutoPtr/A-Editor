@@ -101,11 +101,13 @@ app.delete('/back/server.js', async(req,res) =>{
 
 
 
-//提交文章内容
-app1.put('back/server.js', async(req, res) => {
+//提交以及更新文章内容
+
+  
+app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
     const id = req.body.id;
-    const [new_data, is_created] = await Article.findOrCreate({
+    var [new_data, is_created] = await Article.findOrCreate({
         // id: null,
         ArticleId: id,
         html_data: htmldata,
@@ -120,7 +122,7 @@ app1.put('back/server.js', async(req, res) => {
 });
 
 
-// 更新文章内容
+
 app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
     const id = req.body.id;
