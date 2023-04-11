@@ -107,16 +107,16 @@ app.delete('/back/server.js', async(req,res) =>{
 app1.post('back/server.js', async(req, res) => {
     const htmldata = req.body.htmldata;
     const id = req.body.id;
-    var new_data = await Article.create({
+    const new_data = await Article.create({
         // id: null,
         ArticleId: id,
         html_data: htmldata,
     })
     
     if (!new_data) {
-        return res.send({ state: 0, message: `Error.` });
+        return res.send({ state: 0, message: `Error: fail to insert.` });
     }
-    return res.send({ state: 1, message: `文章数据插入数据库成功.` });
+    return res.send({ state: 1, message: `文章数据插入成功.` });
 
 });
 
@@ -135,8 +135,8 @@ app1.post('back/server.js', async(req, res) => {
                       
 
     if (! update_data) {
-        return res.send({ state: 0, message: 'Error.' });
+        return res.send({ state: 0, message: 'Error: fail to update.' });
     }
-    else 
-        return res.send({ state: 1, message: '文章数据更新成功.' });
+   
+    return res.send({ state: 1, message: '文章数据更新成功.' });
 });
