@@ -21,13 +21,13 @@ app.put('/back/server.js',async(req,res)=>{
             })
         }
         // 创建新的版本
-        const newVersion = await History.createHistorys({
+        const newversion = await History.createhistorys({
             content: content,
             author : author,
             versiontitle : versiontitle,
         })
 
-        res.send(newVersion)
+        res.send(newversion)
     }
     catch (error){
         console.error(error);

@@ -12,7 +12,7 @@ const History = sequelize.define('History', {
     // Model attributes are defined here
       ID: {
       type: DataTypes.UUID,
-      defaultValue: Datatypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
     },
   ArticleId : {
@@ -43,11 +43,6 @@ const History = sequelize.define('History', {
   );
 
 
-  // 把文章和历史版本关联起来
-  Article.hasMany(ArticleVersion);
-  ArticleVersion.belongsTo(Article);
-  
-
 
 
   // 存储文章信息的表
@@ -59,7 +54,7 @@ const Article  = sequelize.define(' Article ', {
     primaryKey: true
   },
   html_data: {
-    type: DataTypes.LONGTEXT,
+    type: DataTypes.STRING,
     // type: DataTypes.BLOB('long'),
     allowNull: false
   },
@@ -90,6 +85,14 @@ const Article  = sequelize.define(' Article ', {
 (async () => {
   await Article.sync();
 })();
+
+
+  // 把文章和历史版本关联起来
+Article.hasMany(History);
+History.belongsTo(Article);
+  
+
+
 
 // 导出 History,Article
 module.exports = {History,Article};
