@@ -26,9 +26,9 @@
   </div>
 </template>
 
-
 <script>
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 export default {
   data() {
@@ -43,34 +43,67 @@ export default {
     createFolder() {
       const name = prompt('请输入文件夹名称：');
       if (name) {
-        this.folders.push({
-          id: uuidv4(), // 添加uuid属性
-          name,
-          subfolders: [],
-        });
+        const id = uuidv4();
+        axios.post('/api/folders', { name, id })
+          .then(() => {
+            this.folders.push({
+              id,
+              name,
+              subfolders: [],
+            });
+          })
+          .catch(error => {
+            console.error(error);
+            alert('创建文件夹失败');
+          });
       }
     },
     deleteFolder(index) {
       if (confirm('是否删除此文件夹？')) {
-        this.folders.splice(index, 1);
+        const folder = this.folders[index];
+        axios.delete(`/api/folders/${folder.id}`)
+          .then(() => {
+            this.folders.splice(index, 1);
+          })
+          .catch(error => {
+            console.error(error);
+            alert('删除文件夹失败');
+          });
       }
     },
     createSubfolder(folderIndex) {
       const name = prompt('请输入文件名称：');
       if (name) {
-        this.folders[folderIndex].subfolders.push({
-          id: uuidv4(), // 添加uuid属性
-          name,
-        });
+        const id = uuidv4();
+        const folderId = this.folders[folderIndex].id;
+        axios.post('/api/subfolders', { name, id, folderId })
+          .then(() => {
+            this.folders[folderIndex].subfolders.push({
+              id,
+              name,
+            });
+          })
+          .catch(error => {
+            console.error(error);
+            alert('创建文件失败');
+          });
       }
     },
     deleteSubfolder(folderIndex, subIndex) {
       if (confirm('是否删除此文件？')) {
-        this.folders[folderIndex].subfolders.splice(subIndex, 1);
+        const subfolder = this.folders[folderIndex].subfolders[subIndex];
+        axios.delete(`/api/subfolders/${subfolder.id}`)
+          .then(() => {
+            this.folders[folderIndex].subfolders.splice(subIndex, 1);
+          })
+          .catch(error => {
+            console.error(error);
+            alert('删除文件失败');
+          });
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>
