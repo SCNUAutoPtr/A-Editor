@@ -1,6 +1,6 @@
 const {Sequelize, DataTypes} = require('sequelize');
-const sequelize = new Sequelize('database', 'root','password',{
-    host : "localhost", 
+const sequelize = new Sequelize('databases', 'root','password',{
+    host : "hostname", 
     dialect : "mysql",
     define : {
         freezeTableName : true,

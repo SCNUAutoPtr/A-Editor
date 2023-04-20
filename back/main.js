@@ -3,12 +3,20 @@ const app = express();
 const {History,Article} = require('./server.js');
 const bodyParser = require('body-parser');
 const { version } = require('core-js');
-const app1 = bodyParser.urlencoded({ extended: false });
+const app1 = express();
 
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
 
 
 // 创建历史版本
-app.put('/back/server.js',async(req,res)=>{
+app.put('/back/main',async(req,res)=>{
     const {id}  = req.params
     const {content,author,versiontitle}= req.body
 
@@ -40,7 +48,7 @@ app.put('/back/server.js',async(req,res)=>{
 })  
 
 //删除历史版本
-app.delete('/back/server.js', async(req,res) =>{
+app.delete('/back/main', async(req,res) =>{
     const {id1} = req.params
    
     try {
@@ -66,7 +74,7 @@ app.delete('/back/server.js', async(req,res) =>{
 
 })
   //查找全部历史版本,接受的是文章的id2
-  app.get('/back/server.js' , async(req,res)=>{
+  app.get('/back/main' , async(req,res)=>{
         const {id2 , id3} = req.params
     try {
         const version = await Article.findByPk(id3)
@@ -99,7 +107,7 @@ app.delete('/back/server.js', async(req,res) =>{
 
 
 //提交以及文章内容  
-app1.post('back/server.js', async(req, res) => {
+app1.post('/back/main', async(req, res) => {
     const htmldata = req.body.htmldata;
     const author = req.body.author;
     const title = req.body.title;
@@ -126,7 +134,7 @@ app1.post('back/server.js', async(req, res) => {
 
 
 //查询文章内容
-app1.select('back/server.js', async(req, res) => {
+app1.post('back/main', async(req, res) => {
     const id = req.params.id;
     const select_data = await Article.findAll({
         where:{
